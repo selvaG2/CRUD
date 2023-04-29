@@ -1,0 +1,30 @@
+{
+  "company": [
+    {
+      "company_name": "CG-VAK",
+      "type": "IT-Sector",
+      "address": "12,abc street,coimbatore-642114",
+      "contact": "1234567890",
+      "email": "cgvak@cgvakindia.com",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "company_name": "G2 technology solutions",
+      "type": "IT-Sector",
+      "address": "12,ab street,coimbatore-642114",
+      "contact": "1234567890",
+      "email": "g2tech@g2.com",
+      "logo": "./assets/images/g2.png"
+    },
+    {
+      "id": 3,
+      "company_name": "ZOHO",
+      "type": "IT-Sector",
+      "address": "12,xyz street,chennai-600241",
+      "contact": "9352817593",
+      "email": "zohocorp@zoho.com",
+      "logo": "./assets/images/zoho.png"
+    }
+  ]
+}

@@ -22,11 +22,11 @@ function loadTable() {
         trHTML +=
           '<td><button type="button" class="btn btn-outline-secondary" onclick="showUserEditBox(' +
           object["id"] +
-          ')">Edit</button>';
+          ')"><i class="fa-regular fa-pen-to-square fa-sm" style="color: #285192;"></i>&nbsp;&nbsp;Edit</button>';
         trHTML +=
           '<button type="button" class="btn btn-outline-danger" onclick="userDelete(' +
           object["id"] +
-          ')">Del</button></td>';
+          ')"><i class="fa-solid fa-trash-can fa-sm" style="color: #dc4c64;"></i>&nbsp;&nbsp;Del&nbsp;&nbsp;</button></td>';
         trHTML += "</tr>";
       }
       document.getElementById("mytable").innerHTML = trHTML;
@@ -35,6 +35,49 @@ function loadTable() {
 }
 
 loadTable();
+
+function userSearch(company_name) {
+  const xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4) {
+      if (this.status == 200) {
+        console.log(this.responseText);
+        var trHTML = "";
+        const objects = JSON.parse(this.responseText);
+        for (let object of objects) {
+          trHTML += "<tr>";
+          trHTML += "<td>" + object["id"] + "</td>";
+          trHTML +=
+            '<td><img width="50px" src="' +
+            object["logo"] +
+            '" class="logo"></td>';
+          trHTML += "<td>" + object["company_name"] + "</td>";
+          trHTML += "<td>" + object["type"] + "</td>";
+          trHTML += "<td>" + object["address"] + "</td>";
+          trHTML += "<td>" + object["contact"] + "</td>";
+          trHTML += "<td>" + object["email"] + "</td>";
+          trHTML +=
+            '<td><button type="button" class="btn btn-outline-secondary" onclick="showUserEditBox(' +
+            object["id"] +
+            ')"><i class="fa-regular fa-pen-to-square fa-sm" style="color: #285192;"></i>&nbsp;&nbsp;Edit</button>';
+          trHTML +=
+            '<button type="button" class="btn btn-outline-danger" onclick="userDelete(' +
+            object["id"] +
+            ')"><i class="fa-solid fa-trash-can fa-sm" style="color: #dc4c64;"></i>&nbsp;&nbsp;Del&nbsp;&nbsp;</button></td>';
+          trHTML += "</tr>";
+        }
+        document.getElementById("mytable").innerHTML = trHTML;
+      } else {
+        console.error("Error fetching data:", this.status, this.statusText);
+      }
+    }
+  };
+  xhttp.open(
+    "GET",
+    `http://localhost:3000/company?company_name=${company_name}`
+  );
+  xhttp.send();
+}
 
 function showUserCreateBox() {
   Swal.fire({
@@ -200,10 +243,6 @@ function userEdit(id) {
     }
   };
 }
-
-
-
-
 
 
 function userDelete(id) {

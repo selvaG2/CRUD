@@ -1,12 +1,13 @@
 {
   "company": [
     {
+      "id": 1,
       "company_name": "CG-VAK",
       "type": "IT-Sector",
-      "address": "12,abc street,coimbatore-642114",
+      "address": "12,ab street,coimbatore-642114",
       "contact": "1234567890",
       "email": "cgvak@cgvakindia.com",
-      "id": 1
+      "logo": "./assets/images/cg-vak.png"
     },
     {
       "id": 2,

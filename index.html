@@ -51,29 +51,11 @@
                     <img src="https://mdbcdn.b-cdn.net/img/logo/mdb-transaprent-noshadows.webp" height="15"
                         alt="MDB Logo" loading="lazy" />
                 </a>
-                <!-- Left links -->
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Dashboard</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Team</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Projects</a>
-                    </li>
-                </ul>
-                <!-- Left links -->
             </div>
             <!-- Collapsible wrapper -->
 
             <!-- Right elements -->
             <div class="d-flex align-items-center">
-                <!-- Icon -->
-                <a class="text-reset me-3" href="#">
-                    <i class="fas fa-shopping-cart"></i>
-                </a>
-
                 <!-- Notifications -->
                 <div class="dropdown">
                     <a class="text-reset me-3 dropdown-toggle hidden-arrow" href="#" id="navbarDropdownMenuLink"
@@ -100,7 +82,7 @@
                         <img src="https://mdbcdn.b-cdn.net/img/new/avatars/2.webp" class="rounded-circle" height="25"
                             alt="Black and White Portrait of a Man" loading="lazy" />
                     </a>
-                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar">
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuAvatar" >
                         <li>
                             <a class="dropdown-item" href="#">My profile</a>
                         </li>
@@ -108,7 +90,7 @@
                             <a class="dropdown-item" href="#">Settings</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" href="#">Logout</a>
+                            <a class="dropdown-item" href="#" style="box-shadow: inset 0px 0px 5px 0px rgba(0, 0, 0, 0.75);">Logout</a>
                         </li>
                     </ul>
                 </div>
@@ -119,12 +101,27 @@
     </nav>
     <!-- Navbar -->
 
-    <section class="mt-lg-5">
+    <section class="mt-lg-5 table-section">
         <div class="container">
             <div class="d-flex bd-highlight">
                 <div class="me-auto p-2 bd-highlight">
-                    <h2>Company details</h2>
+                    <h3>Company details</h3>
                 </div>
+                <form action="">
+                    <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
+                        <div class="input-group">
+                            <input type="search" placeholder="What're you searching for?" aria-describedby="button-addon1"
+                                class="form-control border-0 bg-light" id="searchInput">
+                            <div class="input-group-append">
+                                <button id="button-addon1" type="button" class="btn btn-link text-primary"
+                                    onclick="userSearch(document.getElementById('searchInput').value)"><i
+                                        class="fa fa-search"></i></button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
                 <div class="p-2 bd-highlight">
                     <button type="button" class="btn btn-secondary" onclick="showUserCreateBox()"><i class="fa-solid fa-user-plus fa-lg"></i> Create</button>
                 </div>

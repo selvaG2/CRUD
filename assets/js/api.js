@@ -127,8 +127,6 @@ function userCreate() {
   const email = document.getElementById("email").value;
   const logo = document.getElementById("logo").files[0];
 
-  console.log(id);
-
   const xhttp = new XMLHttpRequest();
   xhttp.open("POST", "http://localhost:3000/company");
   xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -144,8 +142,6 @@ function userCreate() {
   );
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      const objects = JSON.parse(this.responseText);
-      Swal.fire(objects["message"]);
       loadTable();
     }
   };
@@ -207,7 +203,10 @@ function showUserEditBox(id) {
         focusConfirm: false,
         showCancelButton: true,
         preConfirm: () => {
-          userEdit(id);
+          return new Promise((resolve) => {
+            userEdit(id);
+            resolve(true);
+          });
         },
       });
     }
@@ -222,27 +221,38 @@ function userEdit(id) {
   const email = document.getElementById("email").value;
   const logo = document.getElementById("logo").files[0];
 
-  const xhttp = new XMLHttpRequest();
-  xhttp.open("PUT", `http://localhost:3000/company/${id}`);
-  xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-  xhttp.send(
-    JSON.stringify({
-      company_name: company_name,
-      type: type,
-      address: address,
-      contact: contact,
-      email: email,
-      logo: logo,
-    })
-  );
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      const objects = JSON.parse(this.responseText);
-      Swal.fire(objects["message"]);
-      loadTable();
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Yes, update it!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      const xhttp = new XMLHttpRequest();
+      xhttp.open("PUT", `http://localhost:3000/company/${id}`);
+      xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+      xhttp.send(
+        JSON.stringify({
+          company_name: company_name,
+          type: type,
+          address: address,
+          contact: contact,
+          email: email,
+          logo: logo,
+        })
+      );
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          loadTable();
+        }
+      };
     }
-  };
+  });
 }
+
 
 
 function userDelete(id) {
@@ -264,8 +274,6 @@ function userDelete(id) {
       xhttp.send(JSON.stringify({ id: id }));
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
-          const objects = JSON.parse(this.responseText);
-          Swal.fire(objects["message"]);
           loadTable();
         }
       };

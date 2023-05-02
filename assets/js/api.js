@@ -130,6 +130,23 @@ function userCreate() {
   const xhttp = new XMLHttpRequest();
   xhttp.open("POST", "http://localhost:3000/company");
   xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      Swal.fire({
+        icon: "success",
+        title: "User created sucessfully...!",
+        showConfirmButton: true,
+      });
+      loadTable(); // Call the loadTable() function after the AJAX request is complete
+    } else {
+      Swal.fire({
+        icon: "failure",
+        title: "Oops..! User not created!",
+        showConfirmButton: true,
+      });
+      loadTable();
+    }
+  };
   xhttp.send(
     JSON.stringify({
       company_name: company_name,
@@ -140,12 +157,6 @@ function userCreate() {
       logo: logo,
     })
   );
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      
-      loadTable();
-    }
-  };
 }
 
 function showUserEditBox(id) {
@@ -204,10 +215,7 @@ function showUserEditBox(id) {
         focusConfirm: false,
         showCancelButton: true,
         preConfirm: () => {
-          return new Promise((resolve) => {
-            userEdit(id);
-            resolve(true);
-          });
+          userEdit(id);
         },
       });
     }
@@ -246,15 +254,27 @@ function userEdit(id) {
         })
       );
       xhttp.onreadystatechange = function () {
-        if (this.readyState == 4 && this.status == 200) {
-          loadTable();
+        if (this.readyState == 4) {
+          if (this.status == 200) {
+            Swal.fire({
+              icon: "success",
+              title: "Your work has been Updated",
+              showConfirmButton: true,
+            });
+            loadTable();
+          } else {
+            Swal.fire({
+              icon: "failure",
+              title: "Oops ...! Updated failed..!",
+              showConfirmButton: true,
+            });
+            loadTable();
+          }
         }
       };
     }
   });
 }
-
-
 
 function userDelete(id) {
   console.log(id);
@@ -274,11 +294,22 @@ function userDelete(id) {
     if (result.value) {
       xhttp.send(JSON.stringify({ id: id }));
       xhttp.onreadystatechange = function () {
-        if (this.readyState == 4) {
+        if (this.readyState == 4 && this.status == 200) {
+          Swal.fire({
+            icon: "success",
+            title: "Deleted sucessfully..!",
+            showConfirmButton: true,
+          });
+          loadTable();
+        } else {
+          Swal.fire({
+            icon: "failure",
+            title: "Opps..! Deletion failed..!",
+            showConfirmButton: true,
+          });
           loadTable();
         }
       };
     }
   });
 }
-

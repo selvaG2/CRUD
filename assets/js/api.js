@@ -240,7 +240,7 @@ function userCreate() {
   ) {
     Swal.fire({
       icon: "success",
-      title: "User created..!",
+      title: "Company created..!",
       showConfirmButton: true,
     });
   }
@@ -290,10 +290,10 @@ function showUserEditBox(id) {
         title: "Update the company details",
         html:
           "<form style='display: grid; grid-template-columns: 1fr 2fr; gap: 10px;'>" +
-          '<label for="company_name">Name:</label><input id="company_name" class="swal2-input" value="' +
+          '<label for="company_name" class="edit_lable">Name:</label><input id="company_name" class="swal2-input" value="' +
           objects["company_name"] +
           '" placeholder="Enter your company name">' +
-          '<label for="type">Type:</label><select id="type" class="swal2-input" value="' +
+          '<label for="type" class="edit_lable">Type:</label><select id="type" class="swal2-input" value="' +
           objects["type"] +
           '">' +
           '<option value="IT-Sector" ' +
@@ -306,16 +306,16 @@ function showUserEditBox(id) {
           (objects["type"] === "Manufacturing" ? "selected" : "") +
           ">Manufacturing</option>" +
           "</select>" +
-          '<label for="address">Address:</label><input id="address" class="swal2-input" value="' +
+          '<label for="address" class="edit_lable">Address:</label><input id="address" class="swal2-input" value="' +
           objects["address"] +
           '" placeholder="Enter your address">' +
-          '<label for="contact">Contact:</label><input id="contact" class="swal2-input" value="' +
+          '<label for="contact" class="edit_lable">Contact:</label><input id="contact" class="swal2-input" value="' +
           objects["contact"] +
           '" placeholder="Enter your contact">' +
-          '<label for="email">Email:</label><input id="email" class="swal2-input" value="' +
+          '<label for="email" class="edit_lable">Email:</label><input id="email" class="swal2-input" value="' +
           objects["email"] +
           '" placeholder="Enter your E-mail">' +
-          '<label for="logo">Logo:</label><input type="file" id="logo" class="swal2-input w-100">' +
+          '<label for="logo" class="edit_lable">Logo:</label><input type="file" id="logo" class="swal2-input w-75">' +
           "</form>",
         focusConfirm: false,
         showCancelButton: true,
@@ -463,7 +463,7 @@ function userEdit(id) {
 
             Swal.fire({
               icon: "success",
-              title: "User Updated..!",
+              title: "Company details Updated..!",
               showConfirmButton: true,
             });
             loadTable();
@@ -496,7 +496,7 @@ function userDelete(id) {
         if (this.readyState == 4 && this.status == 200) {
           const objects = JSON.parse(this.responseText);
           Swal.fire({
-            title: "Deletion successful!",
+            title: "Company deleted sucessfully",
             icon: "success",
           });
           loadTable();

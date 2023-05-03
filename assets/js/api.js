@@ -38,7 +38,6 @@ function loadTable() {
 
 loadTable(); //automatically invoke once the page is loaded/reloaded
 
-
 //User search function with company name
 
 function userSearch(company_name) {
@@ -84,8 +83,7 @@ function userSearch(company_name) {
   xhttp.send();
 }
 
-
-//User create box 
+//User create box
 
 function showUserCreateBox() {
   Swal.fire({
@@ -137,7 +135,89 @@ function userCreate() {
   const email = document.getElementById("email").value;
   const logo = document.getElementById("logo").files[0];
 
-  // Get the file name and store it with the path of "./assets/images/"
+  //if fields are empty throw an error
+  if (
+    company_name.trim() === "" ||
+    type.trim() === "" ||
+    address.trim() === "" ||
+    contact.trim() === "" ||
+    email.trim() === "" ||
+    logo === undefined
+  ) {
+    Swal.fire({
+      title: "Fields cannot be empty",
+      icon: "error",
+      showConfirmButton: true,
+      timer: 9000,
+      customClass: {
+        popup: "frosted-glass",
+      },
+    }).then(() => {
+      // Call the function recursively after showing the error message
+      userCreate();
+    });
+    return;
+  }
+
+
+  //RegEx for company name, contact, email, address
+  const company_name_regex = /^[a-zA-Z\s]+$/g;
+  const contact_regex = /^[\d]{10}$/g;
+  const address_regex = /^[a-zA-Z0-9\s\.,#-]+$/g;
+  const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/g;
+
+  if (!company_name_regex.test(company_name)) {
+    Swal.fire({
+      title: "Invalid Username",
+      icon: "error",
+      showConfirmButton: false,
+      timer: 3500,
+      customClass: {
+        popup: "frosted-glass",
+      },
+    });
+    return;
+  }
+
+  if (!contact_regex.test(contact)) {
+    Swal.fire({
+      title: "Invalid Contact",
+      icon: "error",
+      showConfirmButton: false,
+      timer: 3500,
+      customClass: {
+        popup: "frosted-glass",
+      },
+    });
+    return;
+  }
+
+  if (!address_regex.test(address)) {
+    Swal.fire({
+      title: "Invalid Address",
+      icon: "error",
+      showConfirmButton: false,
+      timer: 3500,
+      customClass: {
+        popup: "frosted-glass",
+      },
+    });
+    return;
+  }
+
+  if (!email_regex.test(email)) {
+    Swal.fire({
+      title: "Invalid E-mail id",
+      icon: "error",
+      showConfirmButton: false,
+      timer: 3500,
+      customClass: {
+        popup: "frosted-glass",
+      },
+    });
+    return;
+  }
+
   const filename = "./assets/images/" + logo.name;
 
   const xhttp = new XMLHttpRequest();
@@ -148,7 +228,7 @@ function userCreate() {
       const objects = JSON.parse(this.responseText);
       Swal.fire(objects["message"]);
     }
-  }
+  };
 
   // Send the data with the updated filename
   xhttp.send(
@@ -162,8 +242,97 @@ function userCreate() {
     })
   );
 
-   loadTable(); 
+  loadTable();
 }
+
+// function userCreate() {
+//   const company_name = document.getElementById("company_name").value;
+//   const type = document.getElementById("type").value;
+//   const address = document.getElementById("address").value;
+//   const contact = document.getElementById("contact").value;
+//   const email = document.getElementById("email").value;
+//   const logo = document.getElementById("logo").files[0];
+
+//   const company_name_error = document.getElementById("company_name_error");
+//   const contact_error = document.getElementById("contact_error");
+//   const address_error = document.getElementById("address_error");
+//   const email_error = document.getElementById("email_error");
+//   const logo_error = document.getElementById("logo_error");
+
+//   // Reset the error messages
+//   company_name_error.textContent = "";
+//   contact_error.textContent = "";
+//   address_error.textContent = "";
+//   email_error.textContent = "";
+//   logo_error.textContent = "";
+
+//   //if fields are empty throw an error
+//   if (
+//     company_name.trim() === "" ||
+//     type.trim() === "" ||
+//     address.trim() === "" ||
+//     contact.trim() === "" ||
+//     email.trim() === "" ||
+//     logo === undefined
+//   ) {
+//     // Display a general error message
+//     company_name_error.textContent = "Fields cannot be empty";
+//     return;
+//   }
+
+//   //RegEx for company name, contact, email, address
+//   const company_name_regex = /^[a-zA-Z\s]+$/g;
+//   const contact_regex = /^[\d]{10}$/g;
+//   const address_regex = /^[a-zA-Z0-9\s\.,#-]+$/g;
+//   const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/g;
+
+//   if (!company_name_regex.test(company_name)) {
+//     company_name_error.textContent = "Invalid Username";
+//     return;
+//   }
+
+//   if (!contact_regex.test(contact)) {
+//     contact_error.textContent = "Invalid Contact";
+//     return;
+//   }
+
+//   if (!address_regex.test(address)) {
+//     address_error.textContent = "Invalid Address";
+//     return;
+//   }
+
+//   if (!email_regex.test(email)) {
+//     email_error.textContent = "Invalid E-mail id";
+//     return;
+//   }
+
+//   const filename = "./assets/images/" + logo.name;
+
+//   const xhttp = new XMLHttpRequest();
+//   xhttp.open("POST", "http://localhost:3000/company");
+//   xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+//   xhttp.onreadystatechange = function () {
+//     if (this.readyState == 4 && this.status == 200) {
+//       const objects = JSON.parse(this.responseText);
+//       Swal.fire(objects["message"]);
+//     }
+//   };
+
+//   // Send the data with the updated filename
+//   xhttp.send(
+//     JSON.stringify({
+//       company_name: company_name,
+//       type: type,
+//       address: address,
+//       contact: contact,
+//       email: email,
+//       logo: filename, // Use the updated filename here
+//     })
+//   );
+
+//   loadTable();
+// }
+
 
 //User edit box
 
@@ -208,9 +377,6 @@ function showUserEditBox(id) {
           userEdit(id);
         },
       });
-
-
-
     }
   };
 }
@@ -315,4 +481,3 @@ function userDelete(id) {
     }
   });
 }
-

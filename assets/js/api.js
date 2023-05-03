@@ -136,48 +136,6 @@ function userCreate() {
   const email = document.getElementById("email").value;
   const logo = document.getElementById("logo").files[0];
 
-  const filename = "./assets/images/" + logo.name;
-
-  if (c_validate == true) {
-    const xhttp = new XMLHttpRequest();
-    xhttp.open("POST", "http://localhost:3000/company");
-    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-    xhttp.onreadystatechange = function () {
-      if (this.readyState == 4 && this.status == 200) {
-        const objects = JSON.parse(this.responseText);
-        Swal.fire(objects["message"]);
-      }
-    };
-
-    // Send the data with the updated filename
-    xhttp.send(
-      JSON.stringify({
-        company_name: company_name,
-        type: type,
-        address: address,
-        contact: contact,
-        email: email,
-        logo: filename, // Use the updated filename here
-      })
-    );
-    loadTable();
-  }
-}
-
-function c_validate() {
-  const company_name = document.getElementById("company_name").value;
-  const type = document.getElementById("type").value;
-  const address = document.getElementById("address").value;
-  const contact = document.getElementById("contact").value;
-  const email = document.getElementById("email").value;
-  const logo = document.getElementById("logo").files[0];
-
-  //RegEx for company name, contact, email, address
-  const company_name_regex = /^[a-zA-Z\s]+$/g;
-  const contact_regex = /^[\d]{10}$/g;
-  const address_regex = /^[a-zA-Z0-9\s\.,#-]+$/g;
-  const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/g;
-
   //if fields are empty throw an error
   if (
     company_name.trim() === "" ||
@@ -205,17 +163,29 @@ function c_validate() {
     return;
   }
 
+  //RegEx for company name, contact, email, address
+  const company_name_regex = /^[a-zA-Z\s]+$/g;
+  const contact_regex = /^[\d]{10}$/g;
+  const address_regex = /^[a-zA-Z0-9\s\.,#-]+$/g;
+  const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/g;
+
   if (!company_name_regex.test(company_name)) {
     Swal.fire({
       title: "Invalid Username",
       icon: "error",
       showConfirmButton: true,
-      timer: 5500,
+      timer: 3500,
       customClass: {
         popup: "frosted-glass",
       },
+    }).then((res) => {
+      console.log(res);
+      if (res.value) {
+        // Call the function recursively after showing the error message
+        showUserCreateBox();
+      }
     });
-    return false;
+    return;
   }
 
   if (!contact_regex.test(contact)) {
@@ -223,12 +193,12 @@ function c_validate() {
       title: "Invalid Contact",
       icon: "error",
       showConfirmButton: false,
-      timer: 5500,
+      timer: 3500,
       customClass: {
         popup: "frosted-glass",
       },
     });
-    return false;
+    return;
   }
 
   if (!address_regex.test(address)) {
@@ -236,12 +206,12 @@ function c_validate() {
       title: "Invalid Address",
       icon: "error",
       showConfirmButton: false,
-      timer: 5500,
+      timer: 3500,
       customClass: {
         popup: "frosted-glass",
       },
     });
-    return false;
+    return;
   }
 
   if (!email_regex.test(email)) {
@@ -249,12 +219,12 @@ function c_validate() {
       title: "Invalid E-mail id",
       icon: "error",
       showConfirmButton: false,
-      timer: 5500,
+      timer: 3500,
       customClass: {
         popup: "frosted-glass",
       },
     });
-    return false;
+    return;
   }
 
   if (
@@ -265,12 +235,36 @@ function c_validate() {
   ) {
     Swal.fire({
       icon: "success",
-      title: "Your work has been Updated",
+      title: "User created..!",
       showConfirmButton: true,
     });
-    
-    return true;
   }
+
+  const filename = "./assets/images/" + logo.name;
+
+  const xhttp = new XMLHttpRequest();
+  xhttp.open("POST", "http://localhost:3000/company");
+  xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      const objects = JSON.parse(this.responseText);
+      Swal.fire(objects["message"]);
+    }
+  };
+
+  // Send the data with the updated filename
+  xhttp.send(
+    JSON.stringify({
+      company_name: company_name,
+      type: type,
+      address: address,
+      contact: contact,
+      email: email,
+      logo: filename, // Use the updated filename here
+    })
+  );
+
+  loadTable();
 }
 
 //User edit box

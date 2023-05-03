@@ -26,6 +26,15 @@
       "contact": "9352817593",
       "email": "zohocorp@zoho.com",
       "logo": "./assets/images/zoho.png"
+    },
+    {
+      "company_name": "it solutions",
+      "type": "IT-Sector",
+      "address": "12,abc street,coimbatore-642114",
+      "contact": "1234567890",
+      "email": "mailtoselva2105@gmail.com",
+      "logo": "./assets/images/favicon.png",
+      "id": 4
     }
   ]
 }

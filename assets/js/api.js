@@ -325,6 +325,27 @@ function userEdit(id) {
   const email = document.getElementById("email").value;
   const logo = document.getElementById("logo").files[0];
 
+  //if fields are empty throw an error
+  if (
+    company_name.trim() === "" ||
+    type.trim() === "" ||
+    address.trim() === "" ||
+    contact.trim() === "" ||
+    email.trim() === "" ||
+    logo === undefined
+  ) {
+    Swal.fire({
+      title: "Fields cannot be empty",
+      icon: "error",
+      showConfirmButton: true,
+      timer: 9000,
+      customClass: {
+        popup: "frosted-glass",
+      },
+    });
+    return;
+  }
+
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -340,7 +361,7 @@ function userEdit(id) {
       if (logo) {
         filename = "./assets/images/" + logo.name;
       }
-
+      
       const xhttp = new XMLHttpRequest();
       xhttp.open("PUT", `http://localhost:3000/company/${id}`);
       xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -365,24 +386,11 @@ function userEdit(id) {
               fileXhttp.open("POST", "http://localhost:3000/upload");
               fileXhttp.send(formData);
             }
-
-            Swal.fire({
-              icon: "success",
-              title: "Your work has been Updated",
-              showConfirmButton: true,
-            });
-            loadTable();
-          } else {
-            Swal.fire({
-              icon: "failure",
-              title: "Oops ...! Updated failed..!",
-              showConfirmButton: true,
-            });
             loadTable();
           }
         }
       };
-    }
+    } 
   });
 }
 

@@ -1,0 +1,76 @@
+a {
+    text-decoration: none;
+}
+
+.login-page {
+    width: 100%;
+    height: 100vh;
+    display: inline-block;
+    display: flex;
+    align-items: center;
+}
+
+.form-right i {
+    font-size: 100px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box
+}
+
+body {
+    height: 100vh;
+    background: #eee;
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+
+.my_button {
+    width: 150px;
+    height: 50px;
+    border: 2px solid #333;
+    font-size: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 0;
+    transition: 2s
+}
+
+.my_button::before,
+.my_button::after {
+    position: absolute;
+    background: #eee;
+    z-index: -1;
+    transition: 1s;
+    content: ''
+}
+
+.my_button::before {
+    height: 50px;
+    width: 130px
+}
+
+.my_button::after {
+    width: 150px;
+    height: 30px
+}
+
+.my_button:hover::before {
+    width: 0px;
+    background: #fff
+}
+
+.my_button:hover::after {
+    height: 0px;
+    background: #fff
+}
+
+.my_button:hover {
+    background: #fff
+}

@@ -26,6 +26,33 @@
       "contact": "9352817593",
       "email": "zohocorp@zoho.com",
       "logo": "./assets/images/zoho.png"
+    },
+    {
+      "company_name": "",
+      "type": "IT-Sector",
+      "address": "",
+      "contact": "",
+      "email": "",
+      "logo": "./assets/images/logo.avif",
+      "id": 6
+    },
+    {
+      "company_name": "",
+      "type": "IT-Sector",
+      "address": "",
+      "contact": "",
+      "email": "",
+      "logo": "./assets/images/zoho.png",
+      "id": 7
+    },
+    {
+      "company_name": "",
+      "type": "IT-Sector",
+      "address": "",
+      "contact": "",
+      "email": "",
+      "logo": "./assets/images/zoho.png",
+      "id": 8
     }
   ]
 }

@@ -143,12 +143,7 @@ function userCreate() {
   const xhttp = new XMLHttpRequest();
   xhttp.open("POST", "http://localhost:3000/company");
   xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-       const objects = JSON.parse(this.responseText);
-       Swal.fire(objects["message"]);
-    }
-  }
+  
 
   // Send the data with the updated filename
   xhttp.send(
@@ -161,12 +156,19 @@ function userCreate() {
       logo: filename, // Use the updated filename here
     })
   );
+
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      const objects = JSON.parse(this.responseText);
+      Swal.fire(objects["message"]);
+    }
+  };
    loadTable(); 
   // Send the file to the server using FormData object
   const formData = new FormData();
   formData.append("file", logo, filename);
   const fileXhttp = new XMLHttpRequest();
-  fileXhttp.open("POST", "http://localhost:3000/upload");
+  fileXhttp.open("POST", "http://localhost:3000/company");
   fileXhttp.send(formData);
 }
 
@@ -185,52 +187,37 @@ function showUserEditBox(id) {
       Swal.fire({
         title: "Add New Company",
         html:
-          '<div class="swal2-row">' +
-          '<label for="company_name">Name</label>' +
-          '<input id="company_name" class="swal2-input" value="' +
+          "<form style='display: grid; grid-template-columns: 1fr 2fr; gap: 10px;'>" +
+          '<label for="company_name">Name:</label><input id="company_name" class="swal2-input" value="' +
           objects["company_name"] +
           '">' +
-          "</div>" +
-          '<div class="swal2-row">' +
-          '<label for="type">Type</label>' +
-          '<select id="type" class="swal2-input" value="' +
+          '<label for="type">Type:</label><select id="type" class="swal2-input" value="' +
           objects["type"] +
           '">' +
           '<option value="IT-Sector" selected>IT-Sector</option>' +
           '<option value="Finance">Finance</option>' +
           '<option value="Manufacturing">Manufacturing</option>' +
           "</select>" +
-          "</div>" +
-          '<div class="swal2-row">' +
-          '<label for="address">Address</label>' +
-          '<input id="address" class="swal2-input" value="' +
+          '<label for="address">Address:</label><input id="address" class="swal2-input" value="' +
           objects["address"] +
           '">' +
-          "</div>" +
-          '<div class="swal2-row">' +
-          '<label for="contact">Contact</label>' +
-          '<input id="contact" class="swal2-input" value="' +
+          '<label for="contact">Contact:</label><input id="contact" class="swal2-input" value="' +
           objects["contact"] +
           '">' +
-          "</div>" +
-          '<div class="swal2-row">' +
-          '<label for="email">Email</label>' +
-          '<input id="email" class="swal2-input" value="' +
+          '<label for="email">Email:</label><input id="email" class="swal2-input" value="' +
           objects["email"] +
           '">' +
-          "</div>" +
-          '<div class="swal2-row">' +
-          '<label for="logo">Logo</label>' +
-          '<input type="file" id="logo" class="swal2-input w-25" value="' +
-          objects["logo"] +
-          '">' +
-          "</div>",
+          '<label for="logo">Logo:</label><input type="file" id="logo" class="swal2-input w-25">' +
+          "</form>",
         focusConfirm: false,
         showCancelButton: true,
         preConfirm: () => {
           userEdit(id);
         },
       });
+
+
+
     }
   };
 }

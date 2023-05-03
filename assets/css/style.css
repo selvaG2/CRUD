@@ -2,18 +2,4 @@ td {
     line-height: 2.5rem;
 }
 
-.swal2-row {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
 
-.swal2-row label {
-    width: 100px;
-    margin-right: 10px;
-}
-
-.swal2-row input,
-.swal2-row select {
-    flex: 1;
-}

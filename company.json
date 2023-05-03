@@ -35,15 +35,6 @@
       "contact": "9352817593",
       "email": "zohocorp@zoho.com",
       "logo": "./assets/images/zoho.png"
-    },
-    {
-      "company_name": "",
-      "type": "IT-Sector",
-      "address": "",
-      "contact": "",
-      "email": "",
-      "logo": "./assets/images/g2.png",
-      "id": 4
     }
   ]
 }

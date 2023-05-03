@@ -17,11 +17,10 @@
 
     <!-- bootstrap js link -->
     <script src="./assets/js/bootstrap.bundle.min.js"></script>
-    
-    
+
+
 
     <!-- sweetalert link -->
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css" />
 
     <!-- Font Awesome -->
@@ -53,8 +52,7 @@
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <!-- Navbar brand -->
                 <a class="navbar-brand mt-2 mt-lg-0" href="#">
-                    <img src="./assets/images/logo.avif" height="50" width="50"
-                        alt="MDB Logo" loading="eager" />
+                    <img src="./assets/images/logo.avif" height="50" width="50" alt="MDB Logo" loading="eager" />
                 </a>
                 CRUD-Company
             </div>
@@ -62,7 +60,8 @@
 
             <!-- Right elements -->
             <div class="d-flex align-items-center">
-                <a href="" class="text-decoration-none text-black"><i class="fa-solid fa-right-from-bracket" style="color: #000000;"></i> Log out</a>
+                <a href="" class="text-decoration-none text-black"><i class="fa-solid fa-right-from-bracket"
+                        style="color: #000000;"></i> Log out</a>
             </div>
             <!-- Right elements -->
         </div>
@@ -73,9 +72,11 @@
     <section class="mt-lg-5 table-section">
         <div class="container">
             <div class="d-flex bd-highlight">
+                <!-- Heading -->
                 <div class="me-auto p-2 bd-highlight">
                     <h3>Company details</h3>
                 </div>
+                <!-- Search button -->
                 <form action="">
                     <div class="p-1 bg-light rounded rounded-pill shadow-sm mb-4">
                         <div class="input-group">
@@ -90,12 +91,14 @@
                     </div>
                 </form>
 
-
+                <!-- create button -->
                 <div class="p-2 bd-highlight">
-                    <button type="button" class="btn btn-secondary" onclick="showUserCreateBox()"><i class="fa-solid fa-user-plus fa-lg"></i> Create</button>
+                    <button type="button" class="btn btn-secondary" onclick="showUserCreateBox()"><i
+                            class="fa-solid fa-user-plus fa-lg"></i> Create</button>
                 </div>
             </div>
 
+            <!-- Table -->
             <div class="container table-responsive">
                 <table class="table table-hover table-striped mt-5">
                     <thead>
@@ -122,8 +125,10 @@
             </div>
     </section>
 
-
+    <!-- api file and sweet alert -->
     <script src="./assets/js/api.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
+
 </body>
 
 </html>

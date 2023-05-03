@@ -143,7 +143,12 @@ function userCreate() {
   const xhttp = new XMLHttpRequest();
   xhttp.open("POST", "http://localhost:3000/company");
   xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-  
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4 && this.status == 200) {
+      const objects = JSON.parse(this.responseText);
+      Swal.fire(objects["message"]);
+    }
+  }
 
   // Send the data with the updated filename
   xhttp.send(
@@ -157,19 +162,7 @@ function userCreate() {
     })
   );
 
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      const objects = JSON.parse(this.responseText);
-      Swal.fire(objects["message"]);
-    }
-  };
    loadTable(); 
-  // Send the file to the server using FormData object
-  const formData = new FormData();
-  formData.append("file", logo, filename);
-  const fileXhttp = new XMLHttpRequest();
-  fileXhttp.open("POST", "http://localhost:3000/company");
-  fileXhttp.send(formData);
 }
 
 //User edit box

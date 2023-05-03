@@ -51,8 +51,32 @@
       "address": "",
       "contact": "",
       "email": "",
-      "logo": "./assets/images/zoho.png",
-      "id": 8
+      "logo": "./assets/images/favicon.png",
+      "id": 9
+    },
+    {
+      "company_name": "",
+      "type": "IT-Sector",
+      "address": "",
+      "contact": "",
+      "email": "",
+      "logo": "./assets/images/cg-vak.png",
+      "id": 11
+    },
+    {
+      "company_name": "",
+      "type": "IT-Sector",
+      "address": "",
+      "contact": "",
+      "email": "",
+      "logo": "./assets/images/logo.avif",
+      "id": 12
+    },
+    {
+      "id": 13
+    },
+    {
+      "id": 14
     }
   ]
 }

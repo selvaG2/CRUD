@@ -90,28 +90,29 @@ function showUserCreateBox() {
     title: "Add New Company",
     html:
       '<div class="swal2-row">' +
-      '<label for="company_name">Name</label>' +
-      '<input id="company_name" class="swal2-input">' +
+      '<label for="company_name">Name </label>' +
+      '<input id="company_name" class="swal2-input" placeholder="Enter your company name">' +
       "</div>" +
       '<div class="swal2-row">' +
       '<label for="type">Type</label>' +
       '<select id="type" class="swal2-input">' +
-      '<option value="IT-Sector" selected>IT-Sector</option>' +
+      '<option value="" disabled selected>Select an industry</option>' +
+      '<option value="IT-Sector">IT-Sector</option>' +
       '<option value="Finance">Finance</option>' +
       '<option value="Manufacturing">Manufacturing</option>' +
       "</select>" +
       "</div>" +
       '<div class="swal2-row">' +
       '<label for="address">Address</label>' +
-      '<input id="address" class="swal2-input">' +
+      '<input id="address" class="swal2-input" placeholder="Enter your address">' +
       "</div>" +
       '<div class="swal2-row">' +
       '<label for="contact">Contact</label>' +
-      '<input id="contact" class="swal2-input">' +
+      '<input id="contact" class="swal2-input" placeholder="Enter your contact">' +
       "</div>" +
       '<div class="swal2-row">' +
       '<label for="email">Email</label>' +
-      '<input id="email" class="swal2-input">' +
+      '<input id="email" class="swal2-input" placeholder="Enter your E-mail">' +
       "</div>" +
       '<div class="swal2-row">' +
       '<label for="logo">Logo</label>' +
@@ -134,6 +135,48 @@ function userCreate() {
   const contact = document.getElementById("contact").value;
   const email = document.getElementById("email").value;
   const logo = document.getElementById("logo").files[0];
+
+  const filename = "./assets/images/" + logo.name;
+
+  if (c_validate == true) {
+    const xhttp = new XMLHttpRequest();
+    xhttp.open("POST", "http://localhost:3000/company");
+    xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xhttp.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        const objects = JSON.parse(this.responseText);
+        Swal.fire(objects["message"]);
+      }
+    };
+
+    // Send the data with the updated filename
+    xhttp.send(
+      JSON.stringify({
+        company_name: company_name,
+        type: type,
+        address: address,
+        contact: contact,
+        email: email,
+        logo: filename, // Use the updated filename here
+      })
+    );
+    loadTable();
+  }
+}
+
+function c_validate() {
+  const company_name = document.getElementById("company_name").value;
+  const type = document.getElementById("type").value;
+  const address = document.getElementById("address").value;
+  const contact = document.getElementById("contact").value;
+  const email = document.getElementById("email").value;
+  const logo = document.getElementById("logo").files[0];
+
+  //RegEx for company name, contact, email, address
+  const company_name_regex = /^[a-zA-Z\s]+$/g;
+  const contact_regex = /^[\d]{10}$/g;
+  const address_regex = /^[a-zA-Z0-9\s\.,#-]+$/g;
+  const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/g;
 
   //if fields are empty throw an error
   if (
@@ -158,35 +201,21 @@ function userCreate() {
         // Call the function recursively after showing the error message
         showUserCreateBox();
       }
-
     });
     return;
   }
-
-
-  //RegEx for company name, contact, email, address
-  const company_name_regex = /^[a-zA-Z\s]+$/g;
-  const contact_regex = /^[\d]{10}$/g;
-  const address_regex = /^[a-zA-Z0-9\s\.,#-]+$/g;
-  const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/g;
 
   if (!company_name_regex.test(company_name)) {
     Swal.fire({
       title: "Invalid Username",
       icon: "error",
       showConfirmButton: true,
-      timer: 3500,
+      timer: 5500,
       customClass: {
         popup: "frosted-glass",
       },
-    }).then((res) => {
-      console.log(res);
-      if (res.value) {
-        // Call the function recursively after showing the error message
-        showUserCreateBox();
-      }
     });
-    return;
+    return false;
   }
 
   if (!contact_regex.test(contact)) {
@@ -194,12 +223,12 @@ function userCreate() {
       title: "Invalid Contact",
       icon: "error",
       showConfirmButton: false,
-      timer: 3500,
+      timer: 5500,
       customClass: {
         popup: "frosted-glass",
       },
     });
-    return;
+    return false;
   }
 
   if (!address_regex.test(address)) {
@@ -207,12 +236,12 @@ function userCreate() {
       title: "Invalid Address",
       icon: "error",
       showConfirmButton: false,
-      timer: 3500,
+      timer: 5500,
       customClass: {
         popup: "frosted-glass",
       },
     });
-    return;
+    return false;
   }
 
   if (!email_regex.test(email)) {
@@ -220,129 +249,29 @@ function userCreate() {
       title: "Invalid E-mail id",
       icon: "error",
       showConfirmButton: false,
-      timer: 3500,
+      timer: 5500,
       customClass: {
         popup: "frosted-glass",
       },
     });
-    return;
+    return false;
   }
 
-  const filename = "./assets/images/" + logo.name;
-
-  const xhttp = new XMLHttpRequest();
-  xhttp.open("POST", "http://localhost:3000/company");
-  xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      const objects = JSON.parse(this.responseText);
-      Swal.fire(objects["message"]);
-    }
-  };
-
-  // Send the data with the updated filename
-  xhttp.send(
-    JSON.stringify({
-      company_name: company_name,
-      type: type,
-      address: address,
-      contact: contact,
-      email: email,
-      logo: filename, // Use the updated filename here
-    })
-  );
-
-  loadTable();
+  if (
+    company_name.match(company_name_regex) &&
+    contact.match(contact_regex) &&
+    address.match(address_regex) &&
+    email.match(email_regex)
+  ) {
+    Swal.fire({
+      icon: "success",
+      title: "Your work has been Updated",
+      showConfirmButton: true,
+    });
+    
+    return true;
+  }
 }
-
-// function userCreate() {
-//   const company_name = document.getElementById("company_name").value;
-//   const type = document.getElementById("type").value;
-//   const address = document.getElementById("address").value;
-//   const contact = document.getElementById("contact").value;
-//   const email = document.getElementById("email").value;
-//   const logo = document.getElementById("logo").files[0];
-
-//   const company_name_error = document.getElementById("company_name_error");
-//   const contact_error = document.getElementById("contact_error");
-//   const address_error = document.getElementById("address_error");
-//   const email_error = document.getElementById("email_error");
-//   const logo_error = document.getElementById("logo_error");
-
-//   // Reset the error messages
-//   company_name_error.textContent = "";
-//   contact_error.textContent = "";
-//   address_error.textContent = "";
-//   email_error.textContent = "";
-//   logo_error.textContent = "";
-
-//   //if fields are empty throw an error
-//   if (
-//     company_name.trim() === "" ||
-//     type.trim() === "" ||
-//     address.trim() === "" ||
-//     contact.trim() === "" ||
-//     email.trim() === "" ||
-//     logo === undefined
-//   ) {
-//     // Display a general error message
-//     company_name_error.textContent = "Fields cannot be empty";
-//     return;
-//   }
-
-//   //RegEx for company name, contact, email, address
-//   const company_name_regex = /^[a-zA-Z\s]+$/g;
-//   const contact_regex = /^[\d]{10}$/g;
-//   const address_regex = /^[a-zA-Z0-9\s\.,#-]+$/g;
-//   const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/g;
-
-//   if (!company_name_regex.test(company_name)) {
-//     company_name_error.textContent = "Invalid Username";
-//     return;
-//   }
-
-//   if (!contact_regex.test(contact)) {
-//     contact_error.textContent = "Invalid Contact";
-//     return;
-//   }
-
-//   if (!address_regex.test(address)) {
-//     address_error.textContent = "Invalid Address";
-//     return;
-//   }
-
-//   if (!email_regex.test(email)) {
-//     email_error.textContent = "Invalid E-mail id";
-//     return;
-//   }
-
-//   const filename = "./assets/images/" + logo.name;
-
-//   const xhttp = new XMLHttpRequest();
-//   xhttp.open("POST", "http://localhost:3000/company");
-//   xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-//   xhttp.onreadystatechange = function () {
-//     if (this.readyState == 4 && this.status == 200) {
-//       const objects = JSON.parse(this.responseText);
-//       Swal.fire(objects["message"]);
-//     }
-//   };
-
-//   // Send the data with the updated filename
-//   xhttp.send(
-//     JSON.stringify({
-//       company_name: company_name,
-//       type: type,
-//       address: address,
-//       contact: contact,
-//       email: email,
-//       logo: filename, // Use the updated filename here
-//     })
-//   );
-
-//   loadTable();
-// }
-
 
 //User edit box
 
@@ -357,28 +286,29 @@ function showUserEditBox(id) {
       //const user = objects["objects"];
       console.log(objects);
       Swal.fire({
-        title: "Add New Company",
+        title: "Update the company details",
         html:
           "<form style='display: grid; grid-template-columns: 1fr 2fr; gap: 10px;'>" +
           '<label for="company_name">Name:</label><input id="company_name" class="swal2-input" value="' +
           objects["company_name"] +
-          '">' +
+          '" placeholder="Enter your company name">' +
           '<label for="type">Type:</label><select id="type" class="swal2-input" value="' +
           objects["type"] +
           '">' +
-          '<option value="IT-Sector" selected>IT-Sector</option>' +
+          '<option value="" disabled selected>Select an industry</option>' +
+          '<option value="IT-Sector">IT-Sector</option>' +
           '<option value="Finance">Finance</option>' +
           '<option value="Manufacturing">Manufacturing</option>' +
           "</select>" +
           '<label for="address">Address:</label><input id="address" class="swal2-input" value="' +
           objects["address"] +
-          '">' +
+          '" placeholder="Enter your address">' +
           '<label for="contact">Contact:</label><input id="contact" class="swal2-input" value="' +
           objects["contact"] +
-          '">' +
+          '" placeholder="Enter your contact">' +
           '<label for="email">Email:</label><input id="email" class="swal2-input" value="' +
           objects["email"] +
-          '">' +
+          '" placeholder="Enter your E-mail">' +
           '<label for="logo">Logo:</label><input type="file" id="logo" class="swal2-input w-25">' +
           "</form>",
         focusConfirm: false,

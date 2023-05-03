@@ -18,4 +18,49 @@ td {
     flex: 1;
 }
 
+/* Center the form within the popup */
+.swal2-popup .swal2-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Style the form grid container */
+.swal2-popup form {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+/* Style the form labels */
+.swal2-popup form label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+/* Style the form inputs */
+.swal2-popup form input,
+.swal2-popup form select {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+}
+
+/* Style the file input */
+.swal2-popup form input[type="file"] {
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+    background-color: #fff;
+    cursor: pointer;
+    width: 75%;
+}
+
 

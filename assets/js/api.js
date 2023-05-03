@@ -37,6 +37,7 @@ function loadTable() {
 }
 
 loadTable(); //automatically invoke once the page is loaded/reloaded
+//-----------------------------------------------------------------------------------------------------------------
 
 //User search function with company name
 
@@ -83,6 +84,8 @@ function userSearch(company_name) {
   xhttp.send();
 }
 
+//-----------------------------------------------------------------------------------------------------------------
+
 //User create box
 
 function showUserCreateBox() {
@@ -125,6 +128,8 @@ function showUserCreateBox() {
     },
   });
 }
+
+//-----------------------------------------------------------------------------------------------------------------
 
 //User create function
 
@@ -267,6 +272,8 @@ function userCreate() {
   loadTable();
 }
 
+//-----------------------------------------------------------------------------------------------------------------
+
 //User edit box
 
 function showUserEditBox(id) {
@@ -289,10 +296,15 @@ function showUserEditBox(id) {
           '<label for="type">Type:</label><select id="type" class="swal2-input" value="' +
           objects["type"] +
           '">' +
-          '<option value="" disabled selected>Select an industry</option>' +
-          '<option value="IT-Sector">IT-Sector</option>' +
-          '<option value="Finance">Finance</option>' +
-          '<option value="Manufacturing">Manufacturing</option>' +
+          '<option value="IT-Sector" ' +
+          (objects["type"] === "IT-Sector" ? "selected" : "") +
+          ">IT-Sector</option>" +
+          '<option value="Finance" ' +
+          (objects["type"] === "Finance" ? "selected" : "") +
+          ">Finance</option>" +
+          '<option value="Manufacturing" ' +
+          (objects["type"] === "Manufacturing" ? "selected" : "") +
+          ">Manufacturing</option>" +
           "</select>" +
           '<label for="address">Address:</label><input id="address" class="swal2-input" value="' +
           objects["address"] +
@@ -303,7 +315,7 @@ function showUserEditBox(id) {
           '<label for="email">Email:</label><input id="email" class="swal2-input" value="' +
           objects["email"] +
           '" placeholder="Enter your E-mail">' +
-          '<label for="logo">Logo:</label><input type="file" id="logo" class="swal2-input w-25">' +
+          '<label for="logo">Logo:</label><input type="file" id="logo" class="swal2-input w-100">' +
           "</form>",
         focusConfirm: false,
         showCancelButton: true,
@@ -315,6 +327,8 @@ function showUserEditBox(id) {
   };
 }
 
+//-----------------------------------------------------------------------------------------------------------------
+
 //user edit function
 
 function userEdit(id) {
@@ -324,6 +338,87 @@ function userEdit(id) {
   const contact = document.getElementById("contact").value;
   const email = document.getElementById("email").value;
   const logo = document.getElementById("logo").files[0];
+
+  //if fields are empty throw an error
+  if (
+    company_name.trim() === "" ||
+    type.trim() === "" ||
+    address.trim() === "" ||
+    contact.trim() === "" ||
+    email.trim() === "" ||
+    logo === undefined
+  ) {
+    Swal.fire({
+      title: "Fields cannot be empty",
+      icon: "error",
+      showConfirmButton: false,
+      timer: 9000,
+      customClass: {
+        popup: "frosted-glass",
+      },
+    });
+    return;
+  }
+
+  //RegEx for company name, contact, email, address
+  const company_name_regex = /^[a-zA-Z\s]+$/g;
+  const contact_regex = /^[\d]{10}$/g;
+  const address_regex = /^[a-zA-Z0-9\s\.,#-]+$/g;
+  const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/g;
+
+  if (!company_name_regex.test(company_name)) {
+    Swal.fire({
+      title: "Invalid Username",
+      icon: "error",
+      showConfirmButton: true,
+      timer: 3500,
+      customClass: {
+        popup: "frosted-glass",
+      },
+    });
+    return;
+  }
+
+  if (!contact_regex.test(contact)) {
+    Swal.fire({
+      title: "Invalid Contact",
+      icon: "error",
+      showConfirmButton: false,
+      timer: 3500,
+      customClass: {
+        popup: "frosted-glass",
+      },
+    });
+    return;
+  }
+
+  if (!address_regex.test(address)) {
+    Swal.fire({
+      title: "Invalid Address",
+      icon: "error",
+      showConfirmButton: false,
+      timer: 3500,
+      customClass: {
+        popup: "frosted-glass",
+      },
+    });
+    return;
+  }
+
+  if (!email_regex.test(email)) {
+    Swal.fire({
+      title: "Invalid E-mail id",
+      icon: "error",
+      showConfirmButton: false,
+      timer: 3500,
+      customClass: {
+        popup: "frosted-glass",
+      },
+    });
+    return;
+  }
+
+  // const filename = "./assets/images/" + logo.name;
 
   Swal.fire({
     title: "Are you sure?",
@@ -340,7 +435,7 @@ function userEdit(id) {
       if (logo) {
         filename = "./assets/images/" + logo.name;
       }
-      
+
       const xhttp = new XMLHttpRequest();
       xhttp.open("PUT", `http://localhost:3000/company/${id}`);
       xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -368,16 +463,18 @@ function userEdit(id) {
 
             Swal.fire({
               icon: "success",
-              title: "Your work has been Updated",
+              title: "User Updated..!",
               showConfirmButton: true,
             });
             loadTable();
-          } 
+          }
         }
       };
     }
   });
 }
+
+//-----------------------------------------------------------------------------------------------------------------
 
 //User delete function
 
@@ -408,3 +505,4 @@ function userDelete(id) {
     }
   });
 }
+//-----------------------------------------------------------------------------------------------------------------

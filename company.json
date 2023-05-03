@@ -29,11 +29,11 @@
     },
     {
       "company_name": "it solutions",
-      "type": "IT-Sector",
+      "type": "Manufacturing",
       "address": "12,abc street,coimbatore-642114",
-      "contact": "1234567890",
+      "contact": "1234567899",
       "email": "mailtoselva2105@gmail.com",
-      "logo": "./assets/images/zoho.png",
+      "logo": "./assets/images/logo.avif",
       "id": 4
     }
   ]

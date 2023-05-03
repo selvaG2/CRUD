@@ -152,9 +152,13 @@ function userCreate() {
       customClass: {
         popup: "frosted-glass",
       },
-    }).then(() => {
-      // Call the function recursively after showing the error message
-      userCreate();
+    }).then((res) => {
+      console.log(res);
+      if (res.value) {
+        // Call the function recursively after showing the error message
+        showUserCreateBox();
+      }
+
     });
     return;
   }
@@ -170,11 +174,17 @@ function userCreate() {
     Swal.fire({
       title: "Invalid Username",
       icon: "error",
-      showConfirmButton: false,
+      showConfirmButton: true,
       timer: 3500,
       customClass: {
         popup: "frosted-glass",
       },
+    }).then((res) => {
+      console.log(res);
+      if (res.value) {
+        // Call the function recursively after showing the error message
+        showUserCreateBox();
+      }
     });
     return;
   }

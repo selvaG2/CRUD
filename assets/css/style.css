@@ -98,7 +98,7 @@ input[type="file"]::before {
     font-family: inherit;
     padding: 0.35em;
     padding-left: 1em;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 500;
     border-radius: 0.9em;
     border: none;

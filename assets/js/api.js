@@ -26,7 +26,7 @@ function loadTable() {
           object["id"] +
           ')"><i class="fa-regular fa-pen-to-square fa-sm" style="color: #285192;"></i>&nbsp;&nbsp;Edit</button>';
         trHTML +=
-          '<button type="button" class="btn btn-outline-danger" onclick="userDelete(' +
+          '<button type="button" class="btn btn-outline-danger deletebtn" onclick="userDelete(' +
           object["id"] +
           ')"><i class="fa-solid fa-trash-can fa-sm" style="color: #dc4c64;"></i>&nbsp;&nbsp;Del&nbsp;&nbsp;</button></td>';
         trHTML += "</tr>";
@@ -145,21 +145,10 @@ function userCreate() {
   xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
-      Swal.fire({
-        icon: "success",
-        title: "User created sucessfully...!",
-        showConfirmButton: true,
-      });
-      loadTable(); // Call the loadTable() function after the AJAX request is complete
-    } else {
-      Swal.fire({
-        icon: "failure",
-        title: "Oops..! User not created!",
-        showConfirmButton: true,
-      });
-      loadTable();
+       const objects = JSON.parse(this.responseText);
+       Swal.fire(objects["message"]);
     }
-  };
+  }
 
   // Send the data with the updated filename
   xhttp.send(
@@ -172,7 +161,7 @@ function userCreate() {
       logo: filename, // Use the updated filename here
     })
   );
-
+   loadTable(); 
   // Send the file to the server using FormData object
   const formData = new FormData();
   formData.append("file", logo, filename);
@@ -246,7 +235,7 @@ function showUserEditBox(id) {
   };
 }
 
-//useredit function
+//user edit function
 
 function userEdit(id) {
   const company_name = document.getElementById("company_name").value;
@@ -319,8 +308,45 @@ function userEdit(id) {
 
 //User delete function
 
+// function userDelete(id) {
+//   console.log(id);
+//   const xhttp = new XMLHttpRequest();
+//   xhttp.open(`DELETE`, `http://localhost:3000/company/${id}`);
+//   xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+
+//   Swal.fire({
+//     title: "Are you sure?",
+//     text: "You won't be able to revert this!",
+//     type: "warning",
+//     showCancelButton: true,
+//     confirmButtonColor: "#3085d6",
+//     cancelButtonColor: "#d33",
+//     confirmButtonText: "Yes, delete it!",
+//   }).then((result) => {
+//     if (result.value) {
+//       xhttp.send(JSON.stringify({ id: id }));
+//       xhttp.onreadystatechange = function () {
+//         if (this.readyState == 4 && this.status == 200) {
+//           Swal.fire({
+//             icon: "success",
+//             title: "Deleted sucessfully..!",
+//             showConfirmButton: true,
+//           });
+//           loadTable();
+//         } else {
+//           Swal.fire({
+//             icon: "failure",
+//             title: "Opps..! Deletion failed..!",
+//             showConfirmButton: true,
+//           });
+//           loadTable();
+//         }
+//       };
+//     }
+//   });
+// }
+
 function userDelete(id) {
-  console.log(id);
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -330,33 +356,21 @@ function userDelete(id) {
     cancelButtonColor: "#d33",
     confirmButtonText: "Yes, delete it!",
   }).then((result) => {
-    if (result.value) {
+    if (result.isConfirmed) {
       const xhttp = new XMLHttpRequest();
-      xhttp.open(`DELETE`, `http://localhost:3000/company/${id}`);
-      xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
-      xhttp.send(
-        JSON.stringify({
-          id: id,
-        })
-      );
+      xhttp.open("DELETE", `http://localhost:3000/company/${id}`);
+      xhttp.send();
       xhttp.onreadystatechange = function () {
-        if (this.readyState == 4) {
+        if (this.readyState == 4 && this.status == 200) {
           const objects = JSON.parse(this.responseText);
           Swal.fire({
-            title: "Deleted!",
-            text: "The user has been deleted.",
+            title: "Deletion successful!",
             icon: "success",
-            timer: 9000, // Display the message for 3 seconds
-            timerProgressBar: true, // Show the progress bar
-            didOpen: () => {
-              Swal.showLoading(); // Show a loading animation until the timer expires
-            },
-            willClose: () => {
-              loadTable(); // Reload the table after deleting the user
-            },
           });
+          loadTable();
         }
       };
     }
   });
 }
+

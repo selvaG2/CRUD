@@ -26,15 +26,6 @@
       "contact": "9352817593",
       "email": "zohocorp@zoho.com",
       "logo": "./assets/images/zoho.png"
-    },
-    {
-      "id": 3,
-      "company_name": "ZOHO",
-      "type": "IT-Sector",
-      "address": "12,xyz street,chennai-600241",
-      "contact": "9352817593",
-      "email": "zohocorp@zoho.com",
-      "logo": "./assets/images/zoho.png"
     }
   ]
 }

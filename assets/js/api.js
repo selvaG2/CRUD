@@ -127,6 +127,9 @@ function userCreate() {
   const email = document.getElementById("email").value;
   const logo = document.getElementById("logo").files[0];
 
+  // Get the file name and store it with the path of "./assets/images/"
+  const filename = "./assets/images/" + logo.name;
+
   const xhttp = new XMLHttpRequest();
   xhttp.open("POST", "http://localhost:3000/company");
   xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -147,6 +150,8 @@ function userCreate() {
       loadTable();
     }
   };
+
+  // Send the data with the updated filename
   xhttp.send(
     JSON.stringify({
       company_name: company_name,
@@ -154,10 +159,18 @@ function userCreate() {
       address: address,
       contact: contact,
       email: email,
-      logo: logo,
+      logo: filename, // Use the updated filename here
     })
   );
+
+  // Send the file to the server using FormData object
+  const formData = new FormData();
+  formData.append("file", logo, filename);
+  const fileXhttp = new XMLHttpRequest();
+  fileXhttp.open("POST", "http://localhost:3000/upload");
+  fileXhttp.send(formData);
 }
+
 
 function showUserEditBox(id) {
   console.log(id);
@@ -240,6 +253,12 @@ function userEdit(id) {
     confirmButtonText: "Yes, update it!",
   }).then((result) => {
     if (result.isConfirmed) {
+      // Get the name of the uploaded file and store it with the path of "./assets/images/"
+      let filename = "";
+      if (logo) {
+        filename = "./assets/images/" + logo.name;
+      }
+
       const xhttp = new XMLHttpRequest();
       xhttp.open("PUT", `http://localhost:3000/company/${id}`);
       xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -250,12 +269,21 @@ function userEdit(id) {
           address: address,
           contact: contact,
           email: email,
-          logo: logo,
+          logo: filename, // Updated filename here
         })
       );
       xhttp.onreadystatechange = function () {
         if (this.readyState == 4) {
           if (this.status == 200) {
+            // If the file was uploaded, send it to the server using FormData object
+            if (logo) {
+              const formData = new FormData();
+              formData.append("file", logo, filename);
+              const fileXhttp = new XMLHttpRequest();
+              fileXhttp.open("POST", "http://localhost:3000/upload");
+              fileXhttp.send(formData);
+            }
+
             Swal.fire({
               icon: "success",
               title: "Your work has been Updated",
@@ -275,6 +303,7 @@ function userEdit(id) {
     }
   });
 }
+
 
 function userDelete(id) {
   console.log(id);

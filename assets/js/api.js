@@ -169,7 +169,7 @@ function userCreate() {
   }
 
   //RegEx for company name, contact, email, address
-  const company_name_regex = /^[a-zA-Z\s]+$/g;
+  const company_name_regex = /^[a-zA-Z0-9\s\.,-]+$/g;
   const contact_regex = /^[\d]{10}$/g;
   const address_regex = /^[a-zA-Z0-9\s\.,#-]+$/g;
   const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/g;
@@ -361,7 +361,7 @@ function userEdit(id) {
   }
 
   //RegEx for company name, contact, email, address
-  const company_name_regex = /^[a-zA-Z\s]+$/g;
+  const company_name_regex = /^[a-zA-Z0-9\s\.,-]+$/g;
   const contact_regex = /^[\d]{10}$/g;
   const address_regex = /^[a-zA-Z0-9\s\.,#-]+$/g;
   const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/g;

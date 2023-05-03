@@ -38,26 +38,6 @@ label.edit_lable {
     margin-top: 35px;
 }
 
-/* .swal2-input[type="file"] {
-    height: 40px;
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    padding: 10px;
-    box-sizing: border-box;
-    color: #555;
-    cursor: pointer;
-}
-
-.swal2-input[type="file"]:hover {
-    background-color: #eee;
-}
-
-.swal2-input[type="file"]:focus {
-    outline: none;
-    border-color: #007bff;
-} */
 
 input[type=file] {
     max-width: 100%;

@@ -11,6 +11,7 @@
     <script src="https://code.jquery.com/jquery-3.6.3.js"
         integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
     <script src="https://kit.fontawesome.com/899f4385bc.js" crossorigin="anonymous"></script>
+    
 </head>
 
 <body>
@@ -25,44 +26,50 @@
                             <div class="col-md-7 pe-0">
                                 <div class="form-left h-100 py-5 px-5">
                                     <form action="./index.html" class="row g-4">
+                                        <span id="error" class="text-danger"></span>
                                         <div class="col-12">
                                             <label>Username<span class="text-danger">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-text"><i class="bi bi-person-fill"></i></div>
-                                                <input type="text" class="form-control" placeholder="Enter Username">
+                                                <input type="text" class="form-control "
+                                                    placeholder="Enter your Username" id="Username">
                                             </div>
+                                            
                                         </div>
 
                                         <div class="col-12">
                                             <label>Password<span class="text-danger">*</span></label>
                                             <div class="input-group">
                                                 <div class="input-group-text"><i class="bi bi-lock-fill"></i></div>
-                                                <input type="password" class="form-control" id="pass"
-                                                    placeholder="Enter Password">
+                                                <input type="password" class="form-control " id="password"
+                                                    placeholder="Enter your Password">
+                                                <button class="btn btn-outline-secondary" type="button"
+                                                    id="togglePassword"">
+                                                    <span toggle="#password"
+                                                        class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                                                </button>
+
                                             </div>
+                                            
                                         </div>
 
-                                        <div class="col-sm-6">
-                                            <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="inlineFormCheck">
-                                                <label class="form-check-label" for="inlineFormCheck">Show
-                                                    password</label>
-                                            </div>
+                                        <div class="col-12 d-flex justify-content-start">
+                                            <button type="submit"
+                                                class="btn btn-primary px-4 float-end mt-4" onclick="validateUser(event)">login</button>
                                         </div>
 
-                                        <div class="col-sm-6">
+                                        <div>
                                             <a href="#" class="float-end text-primary">Forgot Password?</a>
                                         </div>
 
-                                        <div class="col-sm-6">
+                                        <div>
                                             <a href="#" class="float-end text-primary">Do you have account?Sign up</a>
                                         </div>
 
-                                        <div class="col-12">
-                                            <button type="submit"
-                                                class="btn btn-primary px-4 float-end mt-4">login</button>
-                                        </div>
+                                        
                                     </form>
+
+
                                 </div>
                             </div>
                             <div class="col-md-5 ps-0 d-none d-md-block">
@@ -78,7 +85,7 @@
     </div>
 
 
-<script src="./assets/js/login.js"></script>
+    <script src="./assets/js/login.js"></script>
 
 </body>
 

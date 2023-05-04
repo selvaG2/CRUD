@@ -475,7 +475,6 @@ function userDelete(id) {  //Deleting the user with ref of id
 }
 //-----------------------------------------------------------------------------------------------------------------
 
-
 function userSort() {      // sorting using company name
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
@@ -490,6 +489,68 @@ function userSort() {      // sorting using company name
             .replace(/[^0-9a-zA-Z]+/g, "")
             .toLowerCase();
           var nameB = b.company_name
+            .replace(/[^0-9a-zA-Z]+/g, "")
+            .toLowerCase();
+          // Compare the modified names
+          if (nameA < nameB) {
+            return -1;
+          }
+          if (nameA > nameB) {
+            return 1;
+          }
+          // Names are equal
+          return 0;
+        });
+
+        for (let object of objects) {
+          trHTML += "<tr>";
+          trHTML += "<td>" + object["id"] + "</td>";
+          trHTML +=
+            '<td><img width="50px" src="' +
+            object["logo"] +
+            '" class="logo"></td>';
+          trHTML += "<td>" + object["company_name"] + "</td>";
+          trHTML += "<td>" + object["type"] + "</td>";
+          trHTML += "<td>" + object["address"] + "</td>";
+          trHTML += "<td>" + object["contact"] + "</td>";
+          trHTML += "<td>" + object["email"] + "</td>";
+          trHTML +=
+            '<td><button type="button" class="btn btn-outline-secondary" onclick="showUserEditBox(' +
+            object["id"] +
+            ')"><i class="fa-regular fa-pen-to-square fa-sm" style="color: #285192;"></i>&nbsp;&nbsp;Edit</button>';
+          trHTML +=
+            '<button type="button" class="btn btn-outline-danger" onclick="userDelete(' +
+            object["id"] +
+            ')"><i class="fa-solid fa-trash-can fa-sm" style="color: #dc4c64;"></i>&nbsp;&nbsp;Del&nbsp;&nbsp;</button></td>';
+          trHTML += "</tr>";
+        }
+        document.getElementById("mytable").innerHTML = trHTML;
+      } else {
+        console.error("Error fetching data:", this.status, this.statusText);
+      }
+    }
+  };
+  xhttp.open("GET", "http://localhost:3000/company");
+  xhttp.send();
+}
+
+//-----------------------------------------------------------------------------------------------------------------
+
+
+function typeSort() {      // sorting using company name
+  const xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if (this.readyState == 4) {
+      if (this.status == 200) {
+        console.log(this.responseText);
+        var trHTML = "";
+        const objects = JSON.parse(this.responseText);
+        objects.sort(function (a, b) {
+          // Remove special characters and spaces and join the name
+          var nameA = a.type
+            .replace(/[^0-9a-zA-Z]+/g, "")
+            .toLowerCase();
+          var nameB = b.type
             .replace(/[^0-9a-zA-Z]+/g, "")
             .toLowerCase();
           // Compare the modified names

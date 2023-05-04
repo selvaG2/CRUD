@@ -1,3 +1,4 @@
+// Toggle function to change the password eye
 $(".toggle-password").click(function () {
   $(this).toggleClass("fa-eye fa-eye-slash");
   var input = $($(this).attr("toggle"));
@@ -8,6 +9,7 @@ $(".toggle-password").click(function () {
   }
 });
 
+// Password and user validation
 function validateUser(event) {
   var Username = document.getElementById("Username").value;
   var password = document.getElementById("password").value;

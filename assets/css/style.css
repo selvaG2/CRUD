@@ -1,7 +1,9 @@
+/* Table data space  */
 td {
     line-height: 2.5rem;
 }
 
+/* Create alert form styling */
 .swal2-row {
     display: flex;
     align-items: center;
@@ -18,6 +20,7 @@ td {
     flex: 1;
 }
 
+/* Edit alert form styling */
 .swal2-popup .swal2-content form {
     display: grid;
     grid-template-columns: 1fr 2fr;
@@ -38,7 +41,7 @@ label.edit_lable {
     margin-top: 35px;
 }
 
-
+/* Choose file input type=file styling */
 input[type=file] {
     max-width: 100%;
     color: #444;
@@ -72,6 +75,7 @@ input[type="file"]::before {
     font-size: 4px;
 }
 
+/* Logout button css */
 .cssbuttons-io-button {
     background: #A370F0;
     color: white;
@@ -125,7 +129,7 @@ input[type="file"]::before {
     transform: scale(0.95);
 }
 
-
+/* Refresh button css */
 .button {
     display: flex;
     justify-content: center;

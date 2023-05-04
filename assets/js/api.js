@@ -73,7 +73,7 @@ function userSearch(company_name) {
         }
         document.getElementById("mytable").innerHTML = trHTML;
       } else {
-        console.error("Error fetching data:", this.status, this.statusText);
+        console.error("Error fetching data:", this.status, this.statusText); //Error will throw if it face any problem
       }
     }
   };
@@ -124,7 +124,7 @@ function showUserCreateBox() {
     focusConfirm: false,
     showCancelButton: true,
     preConfirm: () => {
-      userCreate();
+      userCreate();  //After entring the details userCreate() function is triggerd to get the data,  send it to server
     },
   });
 }
@@ -155,9 +155,6 @@ function userCreate() {
       icon: "error",
       showConfirmButton: true,
       timer: 9000,
-      customClass: {
-        popup: "frosted-glass",
-      },
     }).then((res) => {
       console.log(res);
       if (res.value) {
@@ -174,64 +171,47 @@ function userCreate() {
   const address_regex = /^[a-zA-Z0-9\s\.,#-]+$/g;
   const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/g;
 
+  // Company name validation
   if (!company_name_regex.test(company_name)) {
     Swal.fire({
       title: "Invalid Username",
       icon: "error",
       showConfirmButton: true,
       timer: 3500,
-      customClass: {
-        popup: "frosted-glass",
-      },
-    }).then((res) => {
-      console.log(res);
-      if (res.value) {
-        // Call the function recursively after showing the error message
-        showUserCreateBox();
-      }
     });
     return;
   }
-
+  // Contact validation
   if (!contact_regex.test(contact)) {
     Swal.fire({
       title: "Invalid Contact",
       icon: "error",
       showConfirmButton: false,
       timer: 3500,
-      customClass: {
-        popup: "frosted-glass",
-      },
     });
     return;
   }
-
+  // Address validation
   if (!address_regex.test(address)) {
     Swal.fire({
       title: "Invalid Address",
       icon: "error",
       showConfirmButton: false,
       timer: 3500,
-      customClass: {
-        popup: "frosted-glass",
-      },
     });
     return;
   }
-
+  // Email validation
   if (!email_regex.test(email)) {
     Swal.fire({
       title: "Invalid E-mail id",
       icon: "error",
       showConfirmButton: false,
       timer: 3500,
-      customClass: {
-        popup: "frosted-glass",
-      },
     });
     return;
   }
-
+  // If all condition satisfied it prompts sucess 
   if (
     company_name.match(company_name_regex) &&
     contact.match(contact_regex) &&
@@ -269,14 +249,14 @@ function userCreate() {
     })
   );
 
-  loadTable();
+  loadTable(); //After create load table is called to refresh the page without loading
 }
 
 //-----------------------------------------------------------------------------------------------------------------
 
 //User edit box
 
-function showUserEditBox(id) {
+function showUserEditBox(id) {  //Editing the user details with the ref of id
   console.log(id);
   const xhttp = new XMLHttpRequest();
   xhttp.open("GET", `http://localhost:3000/company/${id}`);
@@ -320,7 +300,7 @@ function showUserEditBox(id) {
         focusConfirm: false,
         showCancelButton: true,
         preConfirm: () => {
-          userEdit(id);
+          userEdit(id);       // after editing the changes it calls the edituser() function to apply changes
         },
       });
     }
@@ -351,11 +331,12 @@ function userEdit(id) {
     Swal.fire({
       title: "Fields cannot be empty",
       icon: "error",
-      showConfirmButton: false,
+      showConfirmButton: true,
       timer: 9000,
-      customClass: {
-        popup: "frosted-glass",
-      },
+    }).then((res) => {
+      if (res.value) {
+        showUserEditBox(id);
+      }
     });
     return;
   }
@@ -366,59 +347,46 @@ function userEdit(id) {
   const address_regex = /^[a-zA-Z0-9\s\.,#-]+$/g;
   const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/g;
 
+  // Company name validation
   if (!company_name_regex.test(company_name)) {
     Swal.fire({
       title: "Invalid Username",
       icon: "error",
       showConfirmButton: true,
       timer: 3500,
-      customClass: {
-        popup: "frosted-glass",
-      },
     });
     return;
   }
-
+  // Contact validation
   if (!contact_regex.test(contact)) {
     Swal.fire({
       title: "Invalid Contact",
       icon: "error",
       showConfirmButton: false,
       timer: 3500,
-      customClass: {
-        popup: "frosted-glass",
-      },
     });
     return;
   }
-
+  // Address validation
   if (!address_regex.test(address)) {
     Swal.fire({
       title: "Invalid Address",
       icon: "error",
       showConfirmButton: false,
       timer: 3500,
-      customClass: {
-        popup: "frosted-glass",
-      },
     });
     return;
   }
-
+  // Email validation
   if (!email_regex.test(email)) {
     Swal.fire({
       title: "Invalid E-mail id",
       icon: "error",
       showConfirmButton: false,
       timer: 3500,
-      customClass: {
-        popup: "frosted-glass",
-      },
     });
     return;
   }
-
-  // const filename = "./assets/images/" + logo.name;
 
   Swal.fire({
     title: "Are you sure?",
@@ -466,7 +434,7 @@ function userEdit(id) {
               title: "Company details Updated..!",
               showConfirmButton: true,
             });
-            loadTable();
+            loadTable();  //after edit load table is called to apply the changes
           }
         }
       };
@@ -478,7 +446,7 @@ function userEdit(id) {
 
 //User delete function
 
-function userDelete(id) {
+function userDelete(id) {  //Deleting the user with ref of id
   Swal.fire({
     title: "Are you sure?",
     text: "You won't be able to revert this!",
@@ -499,7 +467,7 @@ function userDelete(id) {
             title: "Company deleted sucessfully",
             icon: "success",
           });
-          loadTable();
+          loadTable();   //Once the user id deleted loadTable is called to refresh the page and apply the changes
         }
       };
     }
@@ -508,7 +476,7 @@ function userDelete(id) {
 //-----------------------------------------------------------------------------------------------------------------
 
 
-function userSort() {
+function userSort() {      // sorting using company name
   const xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4) {
@@ -517,17 +485,24 @@ function userSort() {
         var trHTML = "";
         const objects = JSON.parse(this.responseText);
         objects.sort(function (a, b) {
-          var nameA = a.company_name.toUpperCase(); // ignore upper and lowercase
-          var nameB = b.company_name.toUpperCase(); // ignore upper and lowercase
+          // Remove special characters and spaces and join the name
+          var nameA = a.company_name
+            .replace(/[^0-9a-zA-Z]+/g, "")
+            .toLowerCase();
+          var nameB = b.company_name
+            .replace(/[^0-9a-zA-Z]+/g, "")
+            .toLowerCase();
+          // Compare the modified names
           if (nameA < nameB) {
             return -1;
           }
           if (nameA > nameB) {
             return 1;
           }
-          // names must be equal
+          // Names are equal
           return 0;
         });
+
         for (let object of objects) {
           trHTML += "<tr>";
           trHTML += "<td>" + object["id"] + "</td>";

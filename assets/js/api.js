@@ -22,7 +22,7 @@ function loadTable() {
         trHTML += "<td>" + object["contact"] + "</td>";
         trHTML += "<td>" + object["email"] + "</td>";
         trHTML +=
-          '<td><button type="button" class="btn btn-outline-secondary" onclick="showUserEditBox(' +
+          '<td class= "actiontd"><button type="button" class="btn btn-outline-secondary" onclick="showUserEditBox(' +
           object["id"] +
           ')"><i class="fa-regular fa-pen-to-square fa-sm" style="color: #285192;"></i>&nbsp;&nbsp;Edit</button>';
         trHTML +=

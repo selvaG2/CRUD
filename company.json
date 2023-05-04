@@ -28,13 +28,67 @@
       "logo": "./assets/images/zoho.png"
     },
     {
-      "company_name": "it solutions",
-      "type": "Manufacturing",
-      "address": "12,abc street,coimbatore-642114",
-      "contact": "1234567899",
-      "email": "mailtoselva2105@gmail.com",
-      "logo": "./assets/images/logo.avif",
+      "company_name": "tcs",
+      "type": "IT-Sector",
+      "address": " 29, Kamaraj Rd, Red Fields, Coimbatore, Tamil Nadu 641018",
+      "contact": "9367361867",
+      "email": "careers@tcs.com",
+      "logo": "./assets/images/tcs.png",
       "id": 4
+    },
+    {
+      "company_name": "Capgemini",
+      "type": "IT-Sector",
+      "address": " CHIL SEZ Area, Saravanampatti, Coimbatore, Tamil Nadu 641035",
+      "contact": "9463829648",
+      "email": "fresherhiring@capgemini.com",
+      "logo": "./assets/images/capgemini.jpg",
+      "id": 5
+    },
+    {
+      "company_name": "Tata Steel Ltd",
+      "type": "Manufacturing",
+      "address": " No 97, Race Course Rd, Race Course,Coimbatore, Tamil Nadu 641018",
+      "contact": "9876123454",
+      "email": "tata@gmail.com",
+      "logo": "./assets/images/tata_steel.jpg",
+      "id": 6
+    },
+    {
+      "company_name": "ICICI Bank",
+      "type": "Finance",
+      "address": "83, Diwan Bahadur Rd, R.S. Puram, Coimbatore, Tamil Nadu 641001",
+      "contact": "9185927593",
+      "email": "Customercare@icicibank.com",
+      "logo": "./assets/images/icici.png",
+      "id": 7
+    },
+    {
+      "company_name": "HDFC Bank",
+      "type": "Finance",
+      "address": "No 590, Diwan Bahadur Rd, Coimbatore, Tamil Nadu 641002",
+      "contact": "7912352378",
+      "email": "customerservicescards@hdfcbank.com",
+      "logo": "./assets/images/hdfc.png",
+      "id": 8
+    },
+    {
+      "company_name": "The Ramco Cements Limited",
+      "type": "Manufacturing",
+      "address": "57, Cowley Brown Rd, Vincent Colony, R.S. Puram, Coimbatore, Tamil Nadu 641002",
+      "contact": "9238147963",
+      "email": "sv@ramcocements.in",
+      "logo": "./assets/images/ramco.jpg",
+      "id": 9
+    },
+    {
+      "company_name": "Kia",
+      "type": "Manufacturing",
+      "address": "Pazhamudir Squares, 1st Floor,, E TV Swamy Rd, R.S. Puram, Coimbatore, Tamil Nadu 641002",
+      "contact": "9275935782",
+      "email": "2649424@kia.com",
+      "logo": "./assets/images/kia.jpg",
+      "id": 10
     }
   ]
 }

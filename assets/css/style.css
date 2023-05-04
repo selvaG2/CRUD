@@ -126,3 +126,33 @@ input[type="file"]::before {
 }
 
 
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 6px 12px;
+    gap: 8px;
+    height: 34px;
+    width: 49px;
+    border: none;
+    background: #ff362b34;
+    border-radius: 20px;
+}
+
+.button:hover {
+    background: #ff362b52;
+}
+
+.button:hover .svg-icon {
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(-360deg);
+    }
+}

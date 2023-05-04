@@ -62,15 +62,16 @@
             <div class="d-flex align-items-center">
                 <!-- logout button -->
                 <form action="./login.html">
-                <button class="cssbuttons-io-button"> Log out
-                    <div class="icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-                            <path fill="none" d="M0 0h24v24H0z"></path>
-                            <path fill="currentColor"
-                                d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z"></path>
-                        </svg>
-                    </div>
-                </button>
+                    <button class="cssbuttons-io-button"> Log out
+                        <div class="icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+                                <path fill="none" d="M0 0h24v24H0z"></path>
+                                <path fill="currentColor"
+                                    d="M16.172 11l-5.364-5.364 1.414-1.414L20 12l-7.778 7.778-1.414-1.414L16.172 13H4v-2z">
+                                </path>
+                            </svg>
+                        </div>
+                    </button>
                 </form>
             </div>
             <!-- Right elements -->
@@ -106,6 +107,21 @@
                     <button type="button" class="btn btn-secondary" onclick="showUserCreateBox()"><i
                             class="fa-solid fa-user-plus fa-lg"></i>&nbsp; Create</button>
                 </div>
+
+                <div class="p-2 bd-highlight">
+                    <button class="button" onclick="loadTable()">
+                        <svg class="svg-icon" fill="none" height="20" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+                            <g stroke="#ff342b" stroke-linecap="round" stroke-width="1.5">
+                                <path
+                                    d="m3.33337 10.8333c0 3.6819 2.98477 6.6667 6.66663 6.6667 3.682 0 6.6667-2.9848 6.6667-6.6667 0-3.68188-2.9847-6.66664-6.6667-6.66664-1.29938 0-2.51191.37174-3.5371 1.01468">
+                                </path>
+                                <path d="m7.69867 1.58163-1.44987 3.28435c-.18587.42104.00478.91303.42582 1.0989l3.28438 1.44986"></path>
+                            </g>
+                        </svg>
+                    </button>
+                </div>
+
+                
             </div>
 
             <!-- Table -->
@@ -116,7 +132,9 @@
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Logo</th>
-                            <th scope="col"> Name &nbsp;&nbsp;<button class="sort-btn" style="background-color: transparent; border: none;" onclick="userSort()"><i class="fa-solid fa-arrow-up-a-z" style="color: #000000;"></i></button></th>
+                            <th scope="col"> Name &nbsp;&nbsp;<button class="sort-btn"
+                                    style="background-color: transparent; border: none;" onclick="userSort()"><i
+                                        class="fa-solid fa-arrow-up-a-z" style="color: #000000;"></i></button></th>
                             <th scope="col">Type</th>
                             <th scope="col">Address</th>
                             <th scope="col">Contact</th>

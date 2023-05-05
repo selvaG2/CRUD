@@ -24,11 +24,11 @@ function loadTable() {
         trHTML +=
           '<td class= "actiontd"><button type="button" class="btn btn-outline-secondary" onclick="showUserEditBox(' +
           object["id"] +
-          ')"><i class="fa-regular fa-pen-to-square fa-sm" style="color: #285192;"></i>&nbsp;&nbsp;Edit</button>';
+          ')"><i class="fa-regular fa-pen-to-square fa-sm" style="color: #285192;"></i></button>';
         trHTML +=
           '<button type="button" class="btn btn-outline-danger deletebtn" onclick="userDelete(' +
           object["id"] +
-          ')"><i class="fa-solid fa-trash-can fa-sm" style="color: #dc4c64;"></i>&nbsp;&nbsp;Del&nbsp;&nbsp;</button></td>';
+          ')"><i class="fa-solid fa-trash-can fa-sm" style="color: #dc4c64;"></i></button></td>';
         trHTML += "</tr>";
       }
       document.getElementById("mytable").innerHTML = trHTML;
@@ -64,11 +64,11 @@ function userSearch(company_name) {
           trHTML +=
             '<td><button type="button" class="btn btn-outline-secondary" onclick="showUserEditBox(' +
             object["id"] +
-            ')"><i class="fa-regular fa-pen-to-square fa-sm" style="color: #285192;"></i>&nbsp;&nbsp;Edit</button>';
+            ')"><i class="fa-regular fa-pen-to-square fa-sm" style="color: #285192;"></i></button>';
           trHTML +=
             '<button type="button" class="btn btn-outline-danger" onclick="userDelete(' +
             object["id"] +
-            ')"><i class="fa-solid fa-trash-can fa-sm" style="color: #dc4c64;"></i>&nbsp;&nbsp;Del&nbsp;&nbsp;</button></td>';
+            ')"><i class="fa-solid fa-trash-can fa-sm" style="color: #dc4c64;"></i></button></td>';
           trHTML += "</tr>";
         }
         document.getElementById("mytable").innerHTML = trHTML;
@@ -154,7 +154,7 @@ function userCreate() {
       title: "Fields cannot be empty",
       icon: "error",
       showConfirmButton: true,
-      timer: 9000,
+      // timer: 9000,
     }).then((res) => {
       console.log(res);
       if (res.value) {
@@ -517,11 +517,11 @@ function userSort() {      // sorting using company name
           trHTML +=
             '<td><button type="button" class="btn btn-outline-secondary" onclick="showUserEditBox(' +
             object["id"] +
-            ')"><i class="fa-regular fa-pen-to-square fa-sm" style="color: #285192;"></i>&nbsp;&nbsp;Edit</button>';
+            ')"><i class="fa-regular fa-pen-to-square fa-sm" style="color: #285192;"></i></button>';
           trHTML +=
             '<button type="button" class="btn btn-outline-danger" onclick="userDelete(' +
             object["id"] +
-            ')"><i class="fa-solid fa-trash-can fa-sm" style="color: #dc4c64;"></i>&nbsp;&nbsp;Del&nbsp;&nbsp;</button></td>';
+            ')"><i class="fa-solid fa-trash-can fa-sm" style="color: #dc4c64;"></i></button></td>';
           trHTML += "</tr>";
         }
         document.getElementById("mytable").innerHTML = trHTML;
@@ -535,7 +535,6 @@ function userSort() {      // sorting using company name
 }
 
 //-----------------------------------------------------------------------------------------------------------------
-
 
 function typeSort() {      // sorting using company name
   const xhttp = new XMLHttpRequest();
@@ -579,11 +578,11 @@ function typeSort() {      // sorting using company name
           trHTML +=
             '<td><button type="button" class="btn btn-outline-secondary" onclick="showUserEditBox(' +
             object["id"] +
-            ')"><i class="fa-regular fa-pen-to-square fa-sm" style="color: #285192;"></i>&nbsp;&nbsp;Edit</button>';
+            ')"><i class="fa-regular fa-pen-to-square fa-sm" style="color: #285192;"></i></button>';
           trHTML +=
             '<button type="button" class="btn btn-outline-danger" onclick="userDelete(' +
             object["id"] +
-            ')"><i class="fa-solid fa-trash-can fa-sm" style="color: #dc4c64;"></i>&nbsp;&nbsp;Del&nbsp;&nbsp;</button></td>';
+            ')"><i class="fa-solid fa-trash-can fa-sm" style="color: #dc4c64;"></i></button></td>';
           trHTML += "</tr>";
         }
         document.getElementById("mytable").innerHTML = trHTML;
@@ -595,3 +594,5 @@ function typeSort() {      // sorting using company name
   xhttp.open("GET", "http://localhost:3000/company");
   xhttp.send();
 }
+
+//-----------------------------------------------------------------------------------------------------------------

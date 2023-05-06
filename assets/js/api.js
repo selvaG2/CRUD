@@ -1,12 +1,13 @@
 //Load table function
 
 function loadTable() {
-  const xhttp = new XMLHttpRequest();
-  xhttp.open("GET", "http://localhost:3000/company");
-  xhttp.send();
-  xhttp.onreadystatechange = function () {
-    if (this.readyState == 4 && this.status == 200) {
-      console.log(this.responseText);
+  const xhttp = new XMLHttpRequest();  //Its an objext used to interact with server & load content without reloading webpage 
+  xhttp.open("GET", "http://localhost:3000/company");  //intializing a req to the server
+  xhttp.send();  // sending the send req to the server
+  xhttp.onreadystatechange = function () { //event handler property used in js to asign fun that will be 
+                                           //called whenever ready state change
+    if (this.readyState == 4 && this.status == 200) {  
+      console.log(this.responseText);  //response from the server
       var trHTML = "";
       const objects = JSON.parse(this.responseText);
       for (let object of objects) {
@@ -229,7 +230,8 @@ function userCreate() {
 
   const xhttp = new XMLHttpRequest();
   xhttp.open("POST", "http://localhost:3000/company");
-  xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+  xhttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");  //set the value of an http req header 
+                                                                        // must be called after open and before send
   xhttp.onreadystatechange = function () {
     if (this.readyState == 4 && this.status == 200) {
       const objects = JSON.parse(this.responseText);
